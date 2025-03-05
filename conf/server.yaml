@@ -1,0 +1,22 @@
+maxraftstate: 1024
+snapDir:
+walDir:
+dbDir:
+servers:
+  manage-server:
+   name: "manage"
+   host: "xxxxx"
+   is_local: false
+  server1:
+   name: "test1"
+   host: "192.168.179.190"
+   is_local: false
+  server2:
+   name: "test2"
+   host: "192.168.179.140"
+   is_local: false
+  server3:
+   name: "test3"
+   host: "192.168.179.95"
+   is_local: true
+

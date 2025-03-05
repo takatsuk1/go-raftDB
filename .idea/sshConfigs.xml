@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="10.16.75.254" id="71c43ec5-cac2-4259-a1a0-bf2b77fd7348" port="22" nameFormat="DESCRIPTIVE" username="raft-node1" useOpenSSHConfig="true" />
+      <sshConfig authType="PASSWORD" host="10.16.39.204" id="4c741827-ef27-4cc2-a920-e7e12c1ce335" port="22" nameFormat="DESCRIPTIVE" username="raft-node2" useOpenSSHConfig="true" />
+      <sshConfig authType="PASSWORD" host="10.16.42.58" id="9040ca9a-53a6-474b-ba5f-bd93dda9e3db" port="22" nameFormat="DESCRIPTIVE" username="raft-node3" useOpenSSHConfig="true" />
+      <sshConfig authType="PASSWORD" host="192.168.179.190" id="5f2406d3-1d59-4736-866a-1c62b3ca3706" port="22" nameFormat="DESCRIPTIVE" username="raft-node1" useOpenSSHConfig="true" />
+      <sshConfig authType="PASSWORD" host="192.168.179.140" id="586f4f4e-fe30-47ac-a0ae-53e8817aaf89" port="22" nameFormat="DESCRIPTIVE" username="raft-node2" useOpenSSHConfig="true" />
+      <sshConfig authType="PASSWORD" host="192.168.179.95" id="a1434b07-3373-45af-ae78-d4b8c1e8797b" port="22" nameFormat="DESCRIPTIVE" username="raft-node3" useOpenSSHConfig="true" />
+      <sshConfig authType="PASSWORD" host="192.168.10.48" id="36a12c36-1613-45f6-8b29-f5f118526fe9" port="22" nameFormat="DESCRIPTIVE" username="raft-node4" />
+      <sshConfig authType="PASSWORD" host="192.168.179.243" id="4b1d3689-ec00-4b8c-9981-cc163fa1cf59" port="22" nameFormat="DESCRIPTIVE" username="raft-node4" useOpenSSHConfig="true" />
+    </configs>
+  </component>
+</project>

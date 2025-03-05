@@ -1,0 +1,14 @@
+maxraftstate: 1024
+servers:
+  server1:
+    name: "test1"
+    host: "192.168.179.190"
+    is_local: false
+  server2:
+    name: "test2"
+    host: "192.168.179.140"
+    is_local: false
+  server3:
+    name: "test4"
+    host: "192.168.179.243"
+    is_local: true

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="raft-node1" remoteFilesAllowedToDisappearOnAutoupload="false" confirmBeforeUploading="false">
+    <option name="confirmBeforeUploading" value="false" />
+    <serverData>
+      <paths name="raft-node1">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/raft-node1/raft-node" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="raft-node2">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/raft-node2/raft-node" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="raft-node3">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/raft-node3/raft-node" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="raft-node4">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/raft-node4/raft-node" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="raft-node5">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/home/raft-node5/raft-node" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

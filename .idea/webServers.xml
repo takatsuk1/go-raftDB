@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="9e6b9571-ef6d-42cf-a98c-5992f335ad60" name="raft-node1">
+        <fileTransfer accessType="SFTP" host="192.168.179.190" port="22" sshConfigId="5f2406d3-1d59-4736-866a-1c62b3ca3706" sshConfig="raft-node1@192.168.179.190:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="9a75de4b-824c-43e0-95ad-442b98c4f4e8" name="raft-node2">
+        <fileTransfer accessType="SFTP" host="192.168.179.140" port="22" sshConfigId="586f4f4e-fe30-47ac-a0ae-53e8817aaf89" sshConfig="raft-node2@192.168.179.140:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="7a35790f-1f5c-49e3-8239-d9cc2db454fa" name="raft-node3">
+        <fileTransfer accessType="SFTP" host="192.168.179.95" port="22" sshConfigId="a1434b07-3373-45af-ae78-d4b8c1e8797b" sshConfig="raft-node3@192.168.179.95:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="befad872-55f5-4b43-8a5c-c39fc8aec04e" name="raft-node4">
+        <fileTransfer accessType="SFTP" host="192.168.179.243" port="22" sshConfigId="4b1d3689-ec00-4b8c-9981-cc163fa1cf59" sshConfig="raft-node4@192.168.179.243:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="6afa947a-0609-46db-9ce5-4bbda878edbf" name="raft-node5">
+        <fileTransfer accessType="SFTP" sshConfigId="11be7cb8-f081-4705-b862-63cdf43e7671" sshConfig="raft-node5@192.168.10.47:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
