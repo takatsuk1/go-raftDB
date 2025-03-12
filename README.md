@@ -97,7 +97,7 @@ Value：
 
 7~12 Byte
 
-![image-20250312114722515](C:\Users\takatsuki\AppData\Roaming\Typora\typora-user-images\image-20250312114722515.png)
+![image-20250312114722515](https://github.com/takatsuk1/go-raftDB/blob/main/images/image-20250312114722515.png)
 
 ##### 测试环境：
 
@@ -117,19 +117,19 @@ ubuntu22.04
 
 QPS:50+  
 
-![e762b61177b18847b954143d6e9b1c47](C:\Users\takatsuki\Documents\Tencent Files\2500776463\nt_qq\nt_data\Pic\2025-03\Ori\e762b61177b18847b954143d6e9b1c47.png)
+![e762b61177b18847b954143d6e9b1c47](https://github.com/takatsuk1/go-raftDB/blob/main/images/e762b61177b18847b954143d6e9b1c47.png)
 
 ### Bench-Get:
 
 QPS:50+ 
 
-![bfb87e42291fc09e3eef15935b35cea2](C:\Users\takatsuki\Documents\Tencent Files\2500776463\nt_qq\nt_data\Pic\2025-03\Ori\bfb87e42291fc09e3eef15935b35cea2.png)
+![bfb87e42291fc09e3eef15935b35cea2](https://github.com/takatsuk1/go-raftDB/blob/main/images/bfb87e42291fc09e3eef15935b35cea2.png)
 
 ### Bench-Concurrent(读写混合并发):
 
 QPS: 90+
 
-![c363c580b28bb3f2cccbae68cbf0a8f0](C:\Users\takatsuki\Documents\Tencent Files\2500776463\nt_qq\nt_data\Pic\2025-03\Ori\c363c580b28bb3f2cccbae68cbf0a8f0.png)
+![c363c580b28bb3f2cccbae68cbf0a8f0](https://github.com/takatsuk1/go-raftDB/blob/main/images/c363c580b28bb3f2cccbae68cbf0a8f0.png)
 
 
 
@@ -138,10 +138,10 @@ QPS: 90+
 QPS太低了，经过排查调试，发现客户端单次请求的耗时在10~20ms之间，而服务器在处理整个请求的耗时在5~10ms之间。并且服务器在处理时的耗时中，耗时大头在通过tcp进行rpc通信的时候，单次rpc通信耗时在2~5ms之间。
 项目中的通信统一使用encoder := gob.NewEncoder(conn)，使用gob包进行序列化并发送数据。
 查询资料发现gob的性能比较差，考虑优化通信模块
-![image-20250312115204757](C:\Users\takatsuki\AppData\Roaming\Typora\typora-user-images\image-20250312115204757.png)
+![image-20250312115204757](https://github.com/takatsuk1/go-raftDB/blob/main/images/image-20250312115204757.png)
 
-![e556b4ac593f6ecd5918c823f8aa6eba](C:\Users\takatsuki\Documents\Tencent Files\2500776463\nt_qq\nt_data\Pic\2025-03\Ori\e556b4ac593f6ecd5918c823f8aa6eba.png)
-![f0700462d6dd0577738604c96908e772](C:\Users\takatsuki\Documents\Tencent Files\2500776463\nt_qq\nt_data\Pic\2025-03\Ori\f0700462d6dd0577738604c96908e772.png)
+![e556b4ac593f6ecd5918c823f8aa6eba](https://github.com/takatsuk1/go-raftDB/blob/main/images/e556b4ac593f6ecd5918c823f8aa6eba.png)
+![f0700462d6dd0577738604c96908e772](https://github.com/takatsuk1/go-raftDB/blob/main/images/f0700462d6dd0577738604c96908e772.png)
 
 
 
@@ -149,11 +149,11 @@ QPS太低了，经过排查调试，发现客户端单次请求的耗时在10~20
 
 ## 整体架构：
 
-![image-20250312155811454](C:\Users\takatsuki\AppData\Roaming\Typora\typora-user-images\image-20250312155811454.png)
+![image-20250312155811454](https://github.com/takatsuk1/go-raftDB/blob/main/images/image-20250312155811454.png)
 
 ## 操作流程图：
 
-![image-20250312162757830](C:\Users\takatsuki\AppData\Roaming\Typora\typora-user-images\image-20250312162757830.png)
+![image-20250312162757830](https://github.com/takatsuk1/go-raftDB/blob/main/images/image-20250312162757830.png)
 
 ## 模块详解：
 
