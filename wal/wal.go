@@ -6,6 +6,7 @@ import (
 	"encoding/binary"
 	"go-raft/config"
 	"go-raft/raft"
+	"go-raft/types"
 	"hash/crc32"
 	"io"
 	"log"
@@ -15,29 +16,6 @@ import (
 	"strings"
 	"sync/atomic"
 )
-
-//暂定机制：两阶段写入，先写入缓冲区中，事务提交时再刷盘。wal只写入raft节点状态变更的日志，不写入操作日志。 snapshot写入数据库数据以及raft状态。
-//
-//还没触发snapshot的崩溃恢复：
-//1.leader 在收到操作日志，在写入raft日志之前崩溃。无影响，客户端超时重新请求
-//2.leader 收到操作日志，写入raft日志后，写入wal之前崩溃，无影响，客户端超时重新请求
-//3. leader收到操作日志，写入raft日志后，写入wal之后，写入到大多数节点之前崩溃。没有日志的raft节点成为leader，客户端超时重新请求，有日志的raft节点会被新leader覆盖。
-//而旧leader通过wal恢复，如果落后日志过多，会被发snapshot，覆盖数据库以及raft状态，不受影响。如果落后日志不多，恢复后成为follower，会被新leader进行截断日志，之后会自己应用前面的日志
-//3. leader收到操作日志，写入raft日志，写入wal后，写入到大多数节点之后崩溃。有新日志的raft节点成为leader。客户端超时重新请求。！！！请求幂等性。
-//新leader如何应用这条日志的？新leader会发送心跳，心跳被同意后，因为新leader会初始化所有matchindex为上次快照的位置，而所有nextindex默认为新leader的最后一条日志。
-//然后新leader会进行回退，找到之前作为follower最后提交的日志。（此时因为之前作为follower，是要收到leader的第二次日志复制请求才会更新commitindex，所以这时候作为新leader的commitIndex一定是在没应用的日志之前的）
-//然后进行应用，就会把之前的日志应用了。而旧leader崩溃恢复后时，如果落后日志过多，会被发snapshot，不受影响，如果落后日志不多，恢复后成为follower，leader没有这条日志，会被发送这条日志
-//
-//4.follower收到日志，写入wal之前崩溃，利用wal恢复，无影响，跟随leader
-//5.follower收到日志，写入wal之后崩溃，利用wal恢复，无影响，收到leader心跳后，会应用之前的日志
-//
-//以上只利用wal进行恢复，不会对底层数据库进行回放，因为只恢复raft的日志状态，会跟着新leader的指引应用前面的所有日志。
-//
-//如果只是重启的操作，利用wal恢复raft状态，底层数据库文件还存在，并且lastapplied这些状态都存在，不会重复应用
-//触发了snapshot的崩溃恢复。
-//
-//场景与上面相同。只是恢复的时候使用了snapshot，将底层数据库的数据进行了恢复，并且利用snapshot+wal对raft状态进行了恢复。随后依然跟随新leader将之前没应用的日志进行了应用，更新了数据库。
-//
 
 var CurrentFileName string
 var WalFile *WAL
@@ -263,7 +241,7 @@ func (w *WAL) Read(walSeq int) ([][]byte, error) {
 
 			// 验证 CRC
 			if crc32.ChecksumIEEE(payload[:n]) != expectedCRC {
-				return nil, ErrCRCMismatch
+				return nil, types.ErrCRCMismatch
 			}
 
 			if int(seq) > walSeq {

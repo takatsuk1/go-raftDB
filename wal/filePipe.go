@@ -39,7 +39,6 @@ func (fp *filePipeline) allocLoop(basePath string) {
 		case <-fp.done:
 			return
 		default:
-			// 生成新文件名
 			timestamp := time.Now().UnixNano()
 			path := fmt.Sprintf("%d.wal", timestamp)
 			seq++
@@ -50,10 +49,8 @@ func (fp *filePipeline) allocLoop(basePath string) {
 				continue
 			}
 
-			// 发送文件到channel (阻塞直到被消费)
 			select {
 			case fp.fileC <- f:
-				// 文件被消费，继续分配下一个
 			case <-fp.done:
 				f.Close()
 				return
@@ -63,20 +60,17 @@ func (fp *filePipeline) allocLoop(basePath string) {
 }
 
 func (fp *filePipeline) allocateFile(path string) (*os.File, error) {
-	// 创建文件
 	f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
 	if err != nil {
 		return nil, err
 	}
 
-	// 预分配固定大小空间
 	zeros := make([]byte, fp.size)
 	if _, err = f.Write(zeros); err != nil {
 		f.Close()
 		return nil, err
 	}
 
-	// 将文件指针移回开始位置
 	if _, err = f.Seek(0, io.SeekStart); err != nil {
 		f.Close()
 		return nil, err

@@ -184,13 +184,9 @@ func (rf *Raft) resetHeartTimer(heartBeatInterval int) {
 func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	// 如果不是leader返回false
 	rf.mu.Lock()
-	// 输出当前线程获取锁的调试信息
-	DPrintf("server %v Start 获取锁mu", rf.me)
 	defer func() {
 		rf.resetHeartTimer(10)
 		rf.mu.Unlock()
-		// 输出当前线程释放锁的调试信息
-		DPrintf("server %v Start 释放锁mu", rf.me)
 	}()
 	if rf.role != Leader {
 		return -1, -1, false
@@ -275,13 +271,10 @@ func (rf *Raft) sendNewNodesGroupLog(op *types.Op) bool {
 func (rf *Raft) CommitChecker() {
 	for !rf.killed() {
 		rf.mu.Lock()
-		// 输出当前线程获取锁的调试信息
-		DPrintf("server %v CommitChecker 获取锁mu，222", rf.me)
 		for rf.commitIndex <= rf.lastApplied {
 			rf.applyCond.Wait()
 		}
 		rf.mu.Unlock()
-		DPrintf("server %v CommitChecker 释放锁mu,228", rf.me)
 
 		rf.mu.Lock()
 		msgBuf := make([]*ApplyMsg, 0, rf.commitIndex-rf.lastApplied)
@@ -322,10 +315,7 @@ func (rf *Raft) ticker() {
 		// 计时器的时间是随机的，通常设置为 50 到 350 毫秒之间的一个随机值。
 		<-rf.voteTimer.C
 		rf.mu.Lock()
-		// 输出当前线程获取锁的调试信息
-		DPrintf("server %v ticker 获取锁mu", rf.me)
 		if len(rf.peers) == 0 {
-			DPrintf("只有一个节点，直接成为leader", rf.me)
 			rf.role = Leader
 			go rf.sendHeartBeats()
 		}
@@ -335,8 +325,6 @@ func (rf *Raft) ticker() {
 		}
 		rf.resetVoteTimer()
 		rf.mu.Unlock()
-		// 输出当前线程释放锁的调试信息
-		DPrintf("server %v ticker 释放锁mu", rf.me)
 	}
 }
 
@@ -363,10 +351,8 @@ func (rf *Raft) ChangeToFinalPeers(names []string, addrs map[string]string) {
 	for nodeID := range nodesToRemove {
 		delete(rf.nextIndex, nodeID)
 		delete(rf.matchIndex, nodeID)
-		DPrintf("Raft[%d] - Removed node %s from nextIndex and matchIndex\n", rf.me, nodeID)
 	}
 	rf.peers = newPeers
-	DPrintf("Raft[%d] - Updated peers to new configuration: %v\n", rf.me, rf.peers)
 }
 
 func Make(peers map[string]*net.ClientEnd, me string,
